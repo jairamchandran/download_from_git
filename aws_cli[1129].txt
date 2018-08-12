@@ -1,0 +1,112 @@
+aws <command> <subcommand> [options and parameters]
+
+aws ec2 create-key-pair --key-name my-key-pair
+aws ec2 create-key-pair --key-name 'my key pair'
+
+aws ec2 describe-key-pairs --key-name MyKeyPair
+
+aws ec2 create-security-group --group-name EC2SecurityGroup --description "Security Group for EC2 instances to allow port 22"
+aws ec2 authorize-security-group-ingress --group-name EC2SecurityGroup --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 describe-security-groups --group-names EC2SecurityGroup
+
+
+aws ec2 run-instances --image-id ami-5ec1673e --key-name MyKey --security-groups EC2SecurityGroup --instance-type t2.micro
+aws ec2 create-key-pair --key-name MyKeyPair
+
+
+aws ec2 describe-instances
+aws ec2 start-instances --instance-ids i-1348636c
+aws s3 cp myfolder s3://mybucket/myfolder --recursive
+aws s3 cp test.txt s3://mybucket/test2.txt
+aws s3 cp s3://mybucket/test.txt s3://mybucket/test2.txt
+
+
+Copying an S3 object to a local file
+aws s3 cp s3://mybucket/test.txt test2.txt
+aws s3 cp s3://mybucket/test.txt s3://mybucket2/
+
+
+Recursively copying S3 objects to a local directory
+aws s3 cp s3://mybucket . --recursive
+
+
+Recursively copying local files to S3
+aws s3 cp myDir s3://mybucket/ --recursive --exclude "*.jpg"
+
+
+Recursively copying S3 objects to another bucket
+aws s3 cp s3://mybucket/ s3://mybucket2/ --recursive --exclude "another/*"
+aws s3 cp s3://mybucket/logs/ s3://mybucket2/logs/ --recursive --exclude "*" --include "*.log"
+
+aws s3 cp s3://mybucket/test.txt s3://mybucket/test2.txt --acl public-read-write
+aws ec2 describe-key-pairs --key-name MyKeyPair
+
+
+
+aws ec2 run-instances   --image-id ami-5ec1673e --key-name MyKey --security-groups EC2SecurityGroup --instance-type t2.micro --placement AvailabilityZone=us-west-2b --block-device-mappings DeviceName=/dev/sdh,Ebs={VolumeSize=100} --count 1
+
+aws ec2 run-instances   --image-id ami-5ec1673e --key-name mykeycli.pem --security-groups EC2SecurityGroup --instance-type t2.micro --count 1
+
+
+aws ec2 describe-instances help
+
+
+aws ec2 describe-instances --instance-ids i-5203422c
+
+
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+
+
+To create the security group and authorize the protocol to the security group:
+================================================================================
+aws ec2 create-security-group --group-name "mygroup1" --description "mysecuriyt group"
+aws ec2 authorize-security-group-ingress --group-name MySecurityGroup --protocol tcp --p
+ort 22 --cidr 203.0.113.0/24
+aws ec2 describe-security-groups --group-id sg-72c2d619 --output table
+aws ec2 authorize-security-group-ingress --group-name mygroup1 --protocol tcp --port 22 --cidr 0.0.0.0/0
+
+To create a key-pair and import the pem file from the command line interface:
+=============================================================================
+aws ec2 create-key-pair --key-name "mykey23" --query "KeyMaterial" --output text > mykey.pem
+chmod 400 mykey.pem
+
+Create an Instance from the key-pairs:
+=====================================
+aws ec2 run-instances --image-id ami-76d6f519 --instance-type t2.micro --count 1 --key-name "mykey23"
+
+
+_____________________
+Below DOne in lab(RHEL instance)
+ 	yum install wget
+    3  wget https://rpmfind.net/linux/fedora/linux/releases/27/Everything/x86_64/os/Packages/p/python2-pip-9.0.1-11.fc27.noarch.rpm
+    4  yum localinstall p
+    5  yum localinstall python2-pip-9.0.1-11.fc27.noarch.rpm
+    6  pip install awscli botocore
+    7  aws
+
+Access Key ID: AKIAJL3KW7MHG5SYGS2A
+Secret Access Key: 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
+
+## to login fron RHEL server
+aws configure
+
+
+### To create key pair
+#aws ec2 create-key-pair --key-name "mykey23j" --query "KeyMaterial" --output text > mykeyl.pem
+chmod 400 mykey1.pem
+### To run instances
+#aws ec2 run-instances --image-id ami-76d6f519 --instance-type t2.micro --count 1 --key-name "mykey23j"
+
+## to get instance id details
+aws ec2 describe-instances --instance-ids i-0765a11266df89e56 --output table|less
+
+##to login to linux server using key file 
+ssh -i mykeyl.pem ec2-user@172.31.19.247<private key>
+
+	
+
+
+
+
+
+
